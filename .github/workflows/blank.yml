@@ -1,11 +1,13 @@
 name: Windows Cloud PC - Anydesk (Optimized)
 on:
   workflow_dispatch:
+
 jobs:
   build:
     name: Start Building...
     runs-on: windows-latest
     timeout-minutes: 360 # O tempo máximo permitido pelo GitHub Actions é de 6 horas (360 min)
+
     steps:
       - name: Downloading & Installing Essentials
         run: |
@@ -23,6 +25,10 @@ jobs:
           # Executa o AnyDesk utilizando o caminho completo de instalação
           $anydeskPath = "$env:ProgramFiles (x86)\AnyDesk\AnyDesk.exe"
           if (Test-Path $anydeskPath) {
+            # Define a palavra-passe de acesso não supervisionado
+            echo "Senha123456" | & $anydeskPath --set-password
+            
+            # Mostra o ID do AnyDesk na consola
             & $anydeskPath --get-id
           } else {
             Write-Host "Instalação do AnyDesk não encontrada em $anydeskPath"
